@@ -12,7 +12,7 @@ SEARCH_MOVIE_URL = "https://api.themoviedb.org/3/search/movie"
 DISCOVER_MOVIE_URL = "https://api.themoviedb.org/3/discover/movie"
 DESCRIBE_MOVIE_URL = "https://api.themoviedb.org/3/movie"
 MOVIE_TITLE = "Fight Club"
-RELEASE_DATE = "2017-08-01"
+RELEASE_DATE = "2017-08-30"
 DEFAULT_PAYLOAD = {'api_key': API_KEY, 'language': 'en-US', 'region': 'US', 'include_adult': 'true',
                    'release_date.gte': RELEASE_DATE, 'with_release_type': 4, 'page': 1}
 

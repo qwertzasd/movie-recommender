@@ -2,8 +2,20 @@
 # https://api.themoviedb.org/3/movie/550?api_key=e2c84bd4529ef2b20608f45305fd3bc1
 from service.movie_recomennder_service import get_movies
 
-if __name__ == '__main__':
-    # description = get_movie_description(550)
-    # movies = get_discovered_movies()
-    # print(movies)
-    get_movies()
+
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    movies = get_movies()
+    return str(movies)
+
+app.run(debug=True)
+
+# if __name__ == '__main__':
+#     # description = get_movie_description(550)
+#     # movies = get_discovered_movies()
+#     # print(movies)
+#     get_movies()
