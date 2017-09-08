@@ -4,8 +4,8 @@ from utility.tmdb_utils import get_discovered_movies, get_movie_description
 IMDB_URL = "http://www.imdb.com/title/"
 
 
-def get_movies():
-    movies = get_discovered_movies()
+def get_movies(date):
+    movies = get_discovered_movies(date)
     result = []
     for movie_data in movies:
         movie_id = movie_data['id']

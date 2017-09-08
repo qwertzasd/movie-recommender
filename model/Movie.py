@@ -8,6 +8,15 @@ class Movie(object):
         self.tmdb_rating = tmdb_rating
         self.imdb_url = imdb_url
 
+    def serialize(self):
+        return "id: " + self.id + '\t' + \
+               "title: " + self.title + '\t' + \
+               "description: " + self.description + "\t" + \
+               "genre_ids:" + self.genre_ids + "\t" + \
+               "imdb_rating: " + self.imdb_rating + "\t" + \
+               "tmdb_rating: " + self.tmdb_rating + "\t" + \
+               "imdb_url: " + self.imdb_url + "\n"
+
     def __repr__(self) -> str:
         return super().__repr__()
 
