@@ -28,7 +28,7 @@ def get_discovered_movies(date, payload=DEFAULT_PAYLOAD):
     payload['release_date.gte'] = date
 
     resp_dict = get_response_text(DISCOVER_MOVIE_URL, payload)
-    #todo handle if response has no result or failed example value for resp_dict: {'success': False, 'status_message': "Couldn't connect to the backend server.", 'status_code': 43}
+    #todo handle if response has no result or failed example value for resp_dict: {'success': False, 'status_message': "Couldn't connect to the backend server.", 'status_code': 43} throw error in get_response_text??? req_status:502
     movies = resp_dict['results']
     total_page_num = resp_dict['total_pages']
 
@@ -47,5 +47,6 @@ def get_movie_description(movie_id):
 
 
 def get_response_text(url, payload):
-    req = requests.get(url, headers={'Authorization': ACCESS_TOKEN}, params=payload)
-    return json.loads(req.text)
+    resp = requests.get(url, headers={'Authorization': ACCESS_TOKEN}, params=payload)
+    resp.raise_for_status()
+    return json.loads(resp.text)
