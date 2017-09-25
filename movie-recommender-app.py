@@ -11,26 +11,32 @@ app = Flask(__name__)
 app.json_encoder = MovieEncoder
 #locale.setlocale(locale.LC_ALL, 'de_DE')
 
-@app.route("/getmovies")
+@app.route("/getmovies", methods = ['POST', 'GET'])
 def getmovies():
+    print("running")
     # http://127.0.0.1:5000/getmovies?date=2017-09-05
-    date = request.args.get('date')
+    # date = request.args.get('date')
     # date = time.strftime("%Y-%m-%d") if request.args.get('date') is None
+
+    date = request.form['date'] if request.method == 'POST' else None
     date = date if date is not None else time.strftime("%Y-%m-%d")
+    print(date)
     movies = get_movies() if date is None else get_movies(date)
-    print("asd")
     # return jsonify(movies)
     movie_ = json.loads(json.dumps(movies))
     template = render_template('movies.html', movies=movie_)
     return template
 
-@app.route('/_add_numbers')
-def add_numbers():
-    """Add two numbers server side, ridiculous but well..."""
-    print("doing some shit")
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('b', 0, type=int)
-    return jsonify(result=a + b)
+@app.route("/getmoviesjson")
+def getmoviesjson():
+    print("running")
+    # http://127.0.0.1:5000/getmoviesjson?date=2017-09-05
+    date = request.args.get('date')
+    print(date)
+    # date = time.strftime("%Y-%m-%d") if request.args.get('date') is None
+    date = date if date is not None else time.strftime("%Y-%m-%d")
+    movies = get_movies() if date is None else get_movies(date)
+    return jsonify(movies)
 
 @app.route('/')
 def index():
@@ -38,7 +44,7 @@ def index():
 
 
 
-app.run(debug=True)
+app.run(threaded=True, debug=True)
 
 # if __name__ == '__main__':
 #     # description = get_movie_description(550)

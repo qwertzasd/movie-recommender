@@ -7,67 +7,95 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 </head>
-<body>
-
+<body onload="myFunction()">
+<!--<body>-->
 <div class="container">
     <!--<h2>Movies</h2>-->
 
-    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!--<div class="form-group">-->
+            <!--<i class="fa fa-calendar">-->
+            <!--</i>-->
+            <!--&lt;!&ndash;<input name=date id=date_field type="date" class="form-control">&ndash;&gt;-->
+            <!--<input required="" id=date_field type="text" class="date" onfocus="(this.type='date')"/>-->
+            <!--</div>-->
+            <!--<div id="date_field" class="input-append date" data-date-format="yyyy-mm-dd">-->
+            <!--<input type="text" class="form-control"><span class="input-group-addon"><i-->
+            <!--class="glyphicon glyphicon-th"></i></span>-->
+            <!--</div>-->
 
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <form class="navbar-form navbar-left" role="discover">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="2017-03-06">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-
-
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-
-    <!--<p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>-->
-    <table id="movies_table" class="table table-bordred table-striped">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>TMDB Rating</th>
-            <th>IMDB Rating</th>
-            <th>IMDB Url</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        {% for movie in movies %}
-        <tr>
-            <td><b>{{movie.title|safe}}</b></td>
-            <td>{{movie.description|safe}}</td>
-            <td>{{movie.tmdb_rating|safe}}</td>
-            <td>{{movie.imdb_rating|safe}}</td>
-            <td><a href="{{movie.imdb_url|safe}}">imdb link</a></td>
-        </tr>
-        {% endfor %}
-
-        </tbody>
-    </table>
+            <form method="post">
+                <div class="form-group"> <!-- Date input -->
+                    <label class="control-label" for="date">Date</label>
+                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                </div>
+                <div class="form-group"> <!-- Submit button -->
+                    <button class="btn btn-primary " name="submit" type="submit">Submit</button>
+                </div>
+            </form>
+    </div>
 </div>
+
+
+<!--<p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>-->
+<table id="movies_table" class="table table-bordred table-striped">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>TMDB Rating</th>
+        <th>IMDB Rating</th>
+        <th>IMDB Url</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for movie in movies %}
+    <tr>
+        <td><b>{{movie.title|safe}}</b></td>
+        <td>{{movie.description|safe}}</td>
+        <td>{{movie.tmdb_rating|safe}}</td>
+        <td>{{movie.imdb_rating|safe}}</td>
+        <td><a href="{{movie.imdb_url|safe}}">imdb link</a></td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<script>
+function myFunction() {
+console.log("quack")
+<!--document.getElementById('date_field').placeholder= new Date().toISOString().slice(0,10);-->
+<!--document.getElementById('date_field').value= new Date().toISOString().slice(0,10);-->
+}
+
+
+
+</script>
+
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'yyyy-mm-dd',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+
+</script>
 
 </body>
 </html>
