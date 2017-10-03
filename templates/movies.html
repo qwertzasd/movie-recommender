@@ -4,15 +4,15 @@
     <title>Movie recommender</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/slate/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/table.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+          href="https://bootswatch.com/slate/bootstrap.css"/>
 </head>
 <body onload="myFunction()">
 <!--<body>-->
@@ -21,55 +21,71 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!--<div class="form-group">-->
-            <!--<i class="fa fa-calendar">-->
-            <!--</i>-->
-            <!--&lt;!&ndash;<input name=date id=date_field type="date" class="form-control">&ndash;&gt;-->
-            <!--<input required="" id=date_field type="text" class="date" onfocus="(this.type='date')"/>-->
-            <!--</div>-->
-            <!--<div id="date_field" class="input-append date" data-date-format="yyyy-mm-dd">-->
-            <!--<input type="text" class="form-control"><span class="input-group-addon"><i-->
-            <!--class="glyphicon glyphicon-th"></i></span>-->
-            <!--</div>-->
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="form-group">
+                    <!--<i class="fa fa-calendar">-->
+                    <!--</i>-->
+                    <!--&lt;!&ndash;<input name=date id=date_field type="date" class="form-control">&ndash;&gt;-->
+                    <!--<input required="" id=date_field type="text" class="date" onfocus="(this.type='date')"/>-->
+                    <!--</div>-->
+                    <!--<div id="date_field" class="input-append date" data-date-format="yyyy-mm-dd">-->
+                    <!--<input type="text" class="form-control"><span class="input-group-addon"><i-->
+                    <!--class="glyphicon glyphicon-th"></i></span>-->
+                    <!--</div>-->
 
-            <form method="post">
-                <div class="form-group"> <!-- Date input -->
-                    <label class="control-label" for="date">Date</label>
-                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                    <form method="post">
+                        <div class="form-group"> <!-- Date input -->
+                            <H1><label class="control-label" for="date">Date</label></H1>
+                            <input class="form-control" id="date" name="date" placeholder="yyyy-mm-dd" type="text"/>
+                        </div>
+                        <div class="form-group"> <!-- Submit button -->
+                            <button class="btn btn-primary " name="submit" type="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group"> <!-- Submit button -->
-                    <button class="btn btn-primary " name="submit" type="submit">Submit</button>
-                </div>
-            </form>
+            </div>
+
+
+            <!--<p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>-->
+            <div>
+                <table id="movies_table" class="table table-fit">
+                    <thead>
+                    <tr>
+                        <th class="special_col">Title</th>
+                        <th>Description</th>
+                        <th>TMDB Rating</th>
+                        <th>IMDB Rating</th>
+                        <th class="special_col">Release Date</th>
+                        <th>IMDB Url</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for movie in movies %}
+                    <tr>
+                        <td class="special_col"><b>{{movie.title|safe}}</b></td>
+                        <!--<td><b>{{movie.title|safe}}</b></td>-->
+                        <td>{{movie.description|safe}}</td>
+                        <td>{{movie.tmdb_rating|safe}}</td>
+                        <td>{{movie.imdb_rating|safe}}</td>
+                        <td class="special_col">{{movie.release_date}}</td>
+                        {% if 'NA' == movie.imdb_url %}
+                        <td>NA</td>
+                        {% else %}
+                        <td><a href="{{movie.imdb_url|safe}}">imdb link</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
 </div>
 
-
-<!--<p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>-->
-<table id="movies_table" class="table table-bordred table-striped">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>TMDB Rating</th>
-        <th>IMDB Rating</th>
-        <th>IMDB Url</th>
-    </tr>
-    </thead>
-    <tbody>
-
-    {% for movie in movies %}
-    <tr>
-        <td><b>{{movie.title|safe}}</b></td>
-        <td>{{movie.description|safe}}</td>
-        <td>{{movie.tmdb_rating|safe}}</td>
-        <td>{{movie.imdb_rating|safe}}</td>
-        <td><a href="{{movie.imdb_url|safe}}">imdb link</a></td>
-    </tr>
-    {% endfor %}
-
-    </tbody>
-</table>
 
 <script>
 function myFunction() {
@@ -80,10 +96,13 @@ console.log("quack")
 
 
 
+
+
 </script>
 
 <script>
     $(document).ready(function(){
+      console.log("asd")
       var date_input=$('input[name="date"]'); //our date input has the name "date"
       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
       var options={
@@ -94,6 +113,12 @@ console.log("quack")
       };
       date_input.datepicker(options);
     })
+
+
+
+
+
+
 
 </script>
 

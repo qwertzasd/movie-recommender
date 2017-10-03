@@ -1,0 +1,5 @@
+td.special_col {
+    white-space: nowrap;
+    vertical-align: middle;
+    width: 100px;
+}

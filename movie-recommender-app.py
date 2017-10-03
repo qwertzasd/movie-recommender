@@ -1,5 +1,3 @@
-# https://api.themoviedb.org/3/discover/movie?api_key=e2c84bd4529ef2b20608f45305fd3bc1&language=en-US&region=US&sort_by=popularity.desc&include_adult=true&page=1&release_date.gte=2017-08-01&with_release_type=4
-# https://api.themoviedb.org/3/movie/550?api_key=e2c84bd4529ef2b20608f45305fd3bc1
 from service.movie_recomennder_service import get_movies
 from flask import Flask, jsonify, request, render_template, json
 import time
@@ -19,7 +17,7 @@ def getmovies():
     # date = time.strftime("%Y-%m-%d") if request.args.get('date') is None
 
     date = request.form['date'] if request.method == 'POST' else None
-    date = date if date is not None else time.strftime("%Y-%m-%d")
+    date = date if (date is not None and len(date) > 0) else time.strftime("%Y-%m-%d")
     print(date)
     movies = get_movies() if date is None else get_movies(date)
     # return jsonify(movies)
@@ -38,13 +36,7 @@ def getmoviesjson():
     movies = get_movies() if date is None else get_movies(date)
     return jsonify(movies)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-
-app.run(threaded=True, debug=True)
+app.run(host='0.0.0.0',threaded=True, debug=True)
 
 # if __name__ == '__main__':
 #     # description = get_movie_description(550)
