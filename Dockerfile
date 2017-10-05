@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 MAINTAINER me
 
 RUN apt-get update -y && \
-	apt-get install -y python-pip python-dev
+	apt-get install -y python-pip python-dev build-essential
 
 RUN mkdir /tmp/movie-recommender
 
@@ -13,10 +13,10 @@ WORKDIR /tmp/movie-recommender
 
 RUN pip install -r requirements.txt
 
-COPY . /tmp/movie-recommender
+ADD . /tmp/movie-recommender
 
-ENTRYPOINT [ "python" ]
+#ENTRYPOINT [ "python" ]
 
-CMD [ "movie-recommender-app.py" ]
-
+#CMD [ "movie-recommender-app.py" ]
+CMD [ "/bin/bash" ]
 EXPOSE 5000

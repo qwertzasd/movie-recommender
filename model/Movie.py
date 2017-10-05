@@ -19,9 +19,6 @@ class Movie(object):
                "release_date: " + self.release_date + "\t" + \
                "imdb_url: " + self.imdb_url + "\n"
 
-    def __repr__(self) -> str:
-        return super().__repr__()
-
     def __str__(self):
         return "id: " + self.id + '\t' + \
                "title: " + self.title + '\t' + \

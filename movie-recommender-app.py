@@ -36,7 +36,7 @@ def getmoviesjson():
     movies = get_movies() if date is None else get_movies(date)
     return jsonify(movies)
 
-app.run(host='0.0.0.0',threaded=True, debug=True)
+app.run(host='0.0.0.0', threaded=True, debug=True)
 
 # if __name__ == '__main__':
 #     # description = get_movie_description(550)
